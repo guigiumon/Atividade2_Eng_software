@@ -103,3 +103,15 @@ Diagrama de Classes Real do Projeto:
 │   BeginnerStrategy    │     │   InvestorStrategy    │
 └───────────────────────┘     └───────────────────────┘
 
+Reflexão: O simple factoty pode apresentar problemas no caso de precisar criar um novo tipo de estrategia para um novo tipo de usuário, e nesse programa os parametros tanto do iniciante quanto do investidor já experiente são os mesmos, mas no caso de que eventualmente teremos que atualizar uma das estratégias mas manter a outra da mesma forma, o factory pode apresetnar problemas pois precisaria criar tipos diferentes de perfis.
+Já o problema do strategy seria que o programa depende totalmente da escolha do usuário, e se for um usuário que não sabe se classificar entre iniciante ou investidor o programa criará recomendações ruins para cada usuário. Considerando também que um usuário mude seu perfil com o passar do tempo o programa pode apresentar problemas com suas sugestões por não ter dados anteriores do usuário quando iniciante.
+
+tarefa 2.3 
+
+## 6. Estratégia de Testes Adotada
+
+A estratégia de testes adotada focou em Testes Unitários Isolados, utilizando o framework nativo `unittest`, com o objetivo de validar o comportamento individual dos dois padrões de projeto aplicados (Simple Factory e Strategy). Essa abordagem é altamente adequada para o que foi implementado, pois garante que as regras matemáticas de transição de renda e a lógica de criação de objetos sejam deterministicamente corretas e blindadas contra erros de execução antes mesmo de qualquer interação humana no terminal. 
+
+Os aspectos do sistema que não foram cobertos por estes testes automatizados foram as funções de Interface de Usuário por Linha de Comando (I/O CLI), como as chamadas diretas de `input()` e `print()` dentro da função `rodar_sistema()`. A não cobertura dessa camada se justifica pelo fato de que simular entradas textuais de terminal em testes unitários gera uma complexidade acidental desnecessária para o escopo atual, sendo muito mais eficiente validar a interface por meio de testes manuais de fumaça (*smoke tests*) diretamente no console.
+
+Revisão crítica: No rodar sistema Todas as funcionalidades de strategy, factory, input e print estão todos no mesmo lugar, então seria dificil de fazer o teste unitário de cada uma dessas funcionalidades detro do rodar_programa().
